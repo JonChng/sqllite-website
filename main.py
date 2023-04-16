@@ -23,29 +23,23 @@ class Book(db.Model):
 db.create_all()
 
 # CREATE RECORD
-new_book = Book(id=1, title="Harry Potter", author="J. K. Rowling", rating=9.3)
-# db.session.add(new_book)
-# db.session.commit()
+
 
 all_books = []
 
-
 @app.route('/')
 def home():
-
+    all_books = db.session.query(Book).all()
     return render_template("index.html", books=all_books)
 
 
 @app.route("/add", methods=["GET","POST"])
 def add():
     if request.method == "POST":
-        data = {
-            "title":request.form['title'],
-            "author":request.form['author'],
-            "rating":request.form['rating']
-        }
-        all_books.append(data)
-        print(data)
+        new_book = Book(title=request.form['title'], author=request.form['author'], rating=request.form['rating'])
+        db.session.add(new_book)
+        db.session.commit()
+
     return render_template("add.html")
 
 

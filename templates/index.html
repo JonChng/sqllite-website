@@ -11,7 +11,7 @@
     {% endif %}
         <ul>
             {% for i in books: %}
-            <li> {{ i['title'] + " - " + i['author'] + " - " + i['rating'] }}</li>
+            <li> {{ i.title }} -  {{i.author}}  - {{i.rating}}</li>
             {% endfor %}
         </ul>
 
